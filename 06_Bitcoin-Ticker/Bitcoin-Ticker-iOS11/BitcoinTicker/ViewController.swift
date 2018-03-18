@@ -15,6 +15,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     let baseURL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC"
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
+    let currenySimbolArray = ["$", "R$", "$", "¥", "€", "£", "$", "Rp", "₪", "₹", "¥", "$", "kr", "$", "zł", "lei", "₽", "kr", "$", "$", "R"]
+    
     var finalURL = ""
 
     //Pre-setup IBOutlets
@@ -47,7 +49,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let currency = currencyArray[row]
         finalURL = "\(baseURL)\(currency)"
         print(finalURL)
-        getPriceData(url: finalURL)
+        getPriceData(url: finalURL, row: row)
     }
     
     
@@ -60,7 +62,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //MARK: - Networking
     /***************************************************************/
 
-    func getPriceData(url: String) {
+    func getPriceData(url: String, row: Int) {
         
         Alamofire.request(url, method: .get)
             .responseJSON { response in
@@ -69,8 +71,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     print("Sucess! Got the price data")
                     let priceJSON : JSON = JSON(response.result.value!)
 
-                    self.updatePriceData(json: priceJSON)
-
+                    self.updatePriceData(json: priceJSON, row: row)
                 } else {
                     print("Error: \(String(describing: response.result.error))")
                     self.bitcoinPriceLabel.text = "Connection Issues"
@@ -82,15 +83,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //MARK: - JSON Parsing
     /***************************************************************/
 
-    func updatePriceData(json : JSON) {
+    func updatePriceData(json : JSON, row: Int) {
 
         if let priceResult = json["averages"]["day"].double {
-            bitcoinPriceLabel.text = String(priceResult)
+            let currenySimbol:String = currenySimbolArray[row]
+            bitcoinPriceLabel.text = String("\(priceResult) \(currenySimbol)")
+            
         }
     }
-
-
-
 
 
 }
