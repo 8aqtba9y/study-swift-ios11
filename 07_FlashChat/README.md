@@ -58,6 +58,6 @@ Pod installation complete! There are 5 dependencies from the Podfile and 12 tota
 
 ##### result
 
-|[](Flash-Chat-iOS11/Flash Chat/WelcomeViewController.swift)|[](Flash-Chat-iOS11/Flash Chat/RegisterViewController.swift)|[](Flash-Chat-iOS11/Flash Chat/ChatViewController.swift)|[](Flash-Chat-iOS11/Flash Chat/LogInViewController.swift)|
+|[WelcomeViewController.swift](Flash-Chat-iOS11/Flash Chat/WelcomeViewController.swift)|[RegisterViewController.swift](Flash-Chat-iOS11/Flash Chat/RegisterViewController.swift)|[ChatViewController.swift](Flash-Chat-iOS11/Flash Chat/ChatViewController.swift)|[LogInViewController.swift](Flash-Chat-iOS11/Flash Chat/LogInViewController.swift)|
 |:-:|:-:|:-:|:-:|
 |![](99_preview/00_result.png)|![](99_preview/01_result.png)|![](99_preview/02_result.png)|![](99_preview/03_result.png)|
