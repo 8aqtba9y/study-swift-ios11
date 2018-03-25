@@ -1,4 +1,4 @@
-### Xylophone
+### Bitcoin-Ticker
 I've been downloaded from here:
 > https://github.com/londonappbrewery/Bitcoin-Ticker-iOS11
 
