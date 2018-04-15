@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
 
     let realm = try! Realm()
     
@@ -26,7 +26,6 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +39,8 @@ class TodoListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let currentItem = todoItems?[indexPath.row] {
             cell.textLabel?.text = currentItem.title
@@ -60,10 +60,6 @@ class TodoListViewController: UITableViewController {
         if let item = todoItems?[indexPath.row] {
             do {
                 try realm.write {
-                    // delete;
-//                    realm.delete(item)
-                    
-                    // update;
                     item.done = !item.done
                 }
             } catch {
@@ -121,7 +117,21 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    
+    //MARK: - Delete Data From Swipe
+    override func updateModel(at indexPath: IndexPath) {
+        if let itemForDeletion = self.todoItems?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(itemForDeletion)
+                }
+            } catch {
+                print("Error deleting item, \(error)")
+            }
+        }
+    }
 }
+
 
 //MARK: - Search bar methods
 extension TodoListViewController: UISearchBarDelegate {
