@@ -50,6 +50,7 @@ playground.xcworkspace
 # Packages/
 # Package.pins
 .build/
+*.mlmodel
 
 # CocoaPods - Refactored to standalone file
 
